@@ -88,9 +88,7 @@ const App = () => {
     success: false,
     error: false,
   });
-
-
-
+  
   //Event listener for form
   const addPerson = (event) => {
     event.preventDefault()
@@ -136,9 +134,14 @@ const App = () => {
       setNotificationProps({ success: true, error: false });
     })
     .catch(error => {
-      console.error('Error al crear la persona:', error);
       setMessage(`Error: ${error.message}`); // Puedes mostrar un mensaje de error en la interfaz de usuario
       setNotificationProps({ success: false, error: true });
+      /* 
+        Quiero imprimir el error en la consola.
+      */
+
+       console.log(error.response.data.error)
+
     });
 
   }
@@ -175,6 +178,7 @@ const App = () => {
   
 
   const filterFunction = (event) => {
+    console.log(event.target.value)
     setFilterInput(event.target.value)
     if(event.target.value === '') {
       setFilteredPersons(persons)
@@ -182,6 +186,7 @@ const App = () => {
     }
     else{
       //Para cada persona, voy a convertir el nombre en minusculas 
+      console.log(persons)
       const filtered = persons.filter(person => person.name.toLowerCase().includes(event.target.value.toLowerCase()))
       setFilteredPersons(filtered);
     }
